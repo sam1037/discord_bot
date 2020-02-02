@@ -1,0 +1,1 @@
+worker: python sam7301.py
