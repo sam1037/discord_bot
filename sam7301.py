@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands, tasks
 import random
 import asyncio
+import schedule as sch
 
 client = commands.Bot(command_prefix=".")
 allow_spam = True
@@ -9,10 +10,51 @@ number, ans, play_guess_num = 0, 0, 0
 guess_count = 'None'
 messages_list = []
 
+
 @client.event
 async def on_ready():
+    global nine_chat
+    for channel in client.get_all_channels():
+        if channel.name == "9chat":
+            nine_chat = channel
     open('messages.txt', 'w').close()  # clear the messages.txt file
     print("Bot is ready")
+    await nine_chat.send("Bot is ready!")
+    lol_members.start()
+    # todo schedule that task using schedule
+
+
+@client.command()
+async def get_id(ctx):
+    if ctx.author.voice and ctx.author.voice.channel:
+        channel = ctx.author.voice.channel
+        print(channel)
+        print(channel.id)
+    else:
+        await ctx.send("You are not connected to a voice channel")
+        return
+
+
+@tasks.loop(minutes=30)
+async def lol_members():
+    global nine_chat
+    print('start lol_members')
+
+    for channel in client.get_all_channels():
+        if channel.name == "LoL #1":
+            voice_channel = channel
+    if not voice_channel:
+        return await nine_chat.send("That is not a valid voice channel.")
+
+    members = voice_channel.members
+    print(members, len(members))
+    member_names = '\n'.join([x.name for x in members])
+
+    embed = discord.Embed(title = "{} member(s) in {} right now".format(len(members), voice_channel.name),
+                          description = member_names,
+                          color=discord.Color.blue())
+    if len(members) > 2:
+        return await nine_chat.send(embed = embed)
 
 
 @client.command()
