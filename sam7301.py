@@ -57,6 +57,15 @@ async def lol_members():
         return await nine_chat.send(embed = embed)
 
 
+@client.command(aliases = ['split'])
+async def split(ctx):
+    try:
+        channel = ctx.message.author.channel
+        await ctx.send(f"channel type:{channel}")
+    except Exception:
+        await ctx.send("You have to be in a channel in order to use this command")
+
+
 @client.command()
 async def ping(ctx):
     """.ping, this is use for testing your ping"""
