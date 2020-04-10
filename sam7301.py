@@ -34,29 +34,6 @@ async def get_id(ctx):
         await ctx.send("You are not connected to a voice channel")
         return
 
-
-@tasks.loop(minutes=30)
-async def lol_members():
-    global nine_chat
-    print('start lol_members')
-
-    for channel in client.get_all_channels():
-        if channel.name == "LoL #1":
-            voice_channel = channel
-    if not voice_channel:
-        return await nine_chat.send("That is not a valid voice channel.")
-
-    members = voice_channel.members
-    print(members, len(members))
-    member_names = '\n'.join([x.name for x in members])
-
-    embed = discord.Embed(title = "{} member(s) in {} right now".format(len(members), voice_channel.name),
-                          description = member_names,
-                          color=discord.Color.blue())
-    if len(members) > 2:
-        return await nine_chat.send(embed = embed)
-
-
 @client.command(aliases = ['split'])
 async def split(ctx):
     try:
