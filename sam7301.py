@@ -2,7 +2,6 @@ import discord
 from discord.ext import commands, tasks
 import random
 import asyncio
-import schedule as sch
 import math
 
 client = commands.Bot(command_prefix=".")
