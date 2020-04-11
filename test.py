@@ -1,2 +1,3 @@
-a = 'fsdf'
-b = int(a)
+a =["1","2","3"]
+b = "\n".join(a)
+print(b)

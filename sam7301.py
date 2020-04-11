@@ -39,23 +39,33 @@ async def split(ctx):
         channel = ctx.message.author.voice.channel
     except Exception:
         await ctx.send("You have to be in a channel in order to use this command")
-    # create splited team list
+    # create splited team list 
     else:
         mem_list = [mem for mem in channel.members if not mem.bot]
-        random.shuffle(mem_list)
         length = len(mem_list)
+        if length <= 1:
+            await ctx.send("There must be more than one user in the channel in order to use this command")
+            return
+        random.shuffle(mem_list)
         teamA = mem_list[0:math.ceil(length/2)]
-        teamB = [a for a in mem_list if a not in teamA]
+        teamB = [a.display_name for a in mem_list if a not in teamA]
+        teamA = [a.display_name for a in teamA]
 
-    # send result
-    # todo make this look good using embed
-    # todo ignore bot in the voice channel
-        await ctx.send(f"Team A:")
-        for mem in teamA:
-            await ctx.send(f"   {mem}")
-        await ctx.send(f"Team B:")
-        for mem in teamB:
-            await ctx.send(f"   {mem}")
+    #create embed object and send result
+        mesA = discord.Embed(
+            title = "TEAM A",
+            colour = discord.Colour.red(),
+            description = "\n".join(teamA)
+        )
+
+        mesB = discord.Embed(
+            title = "TEAM B",
+            colour = discord.Colour.blue(),
+            description = "\n".join(teamB)
+        )
+
+        await ctx.message.channel.send(embed=mesA)
+        await ctx.message.channel.send(embed=mesB)
 
 
 @client.command()
