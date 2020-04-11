@@ -19,7 +19,6 @@ async def on_ready():
             nine_chat = channel
     open('messages.txt', 'w').close()  # clear the messages.txt file
     print("Bot is ready")
-    await nine_chat.send("Bot is ready!")
     # todo schedule that task using schedule
 
 
@@ -42,7 +41,7 @@ async def split(ctx):
         await ctx.send("You have to be in a channel in order to use this command")
     # create splited team list
     else:
-        mem_list = channel.members
+        mem_list = [mem for mem in channel.members if not mem.bot]
         random.shuffle(mem_list)
         length = len(mem_list)
         teamA = mem_list[0:math.ceil(length/2)]
@@ -53,10 +52,10 @@ async def split(ctx):
     # todo ignore bot in the voice channel
         await ctx.send(f"Team A:")
         for mem in teamA:
-            await ctx.send(mem)
+            await ctx.send(f"   {mem)")
         await ctx.send(f"Team B:")
         for mem in teamB:
-            await ctx.send(mem)
+            await ctx.send(f"   {mem}")
 
 
 @client.command()
