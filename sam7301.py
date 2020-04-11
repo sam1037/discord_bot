@@ -52,7 +52,7 @@ async def split(ctx):
     # todo ignore bot in the voice channel
         await ctx.send(f"Team A:")
         for mem in teamA:
-            await ctx.send(f"   {mem)")
+            await ctx.send(f"   {mem}")
         await ctx.send(f"Team B:")
         for mem in teamB:
             await ctx.send(f"   {mem}")
