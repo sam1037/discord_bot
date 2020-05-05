@@ -11,6 +11,8 @@ guess_count = 'None'
 messages_list = []
 
 
+client.remove_command("help")
+
 @client.event
 async def on_ready():
     global nine_chat
@@ -21,9 +23,14 @@ async def on_ready():
     print("Bot is ready")
     # todo schedule that task using schedule
 
+    a = [a for a in client.all_commands]
+    for a1 in a:
+        print(a1)
+
 
 @client.command()
 async def get_id(ctx):
+    # get the voice channel id
     if ctx.author.voice and ctx.author.voice.channel:
         channel = ctx.author.voice.channel
         print(channel)
@@ -33,12 +40,27 @@ async def get_id(ctx):
         return
 
 @client.command()
+async def help(ctx):
+    helpEmbed = discord.Embed(color=ctx.author.color, title="HELP")
+
+    helpEmbed.add_field(name="help", value="Bring up this message", inline=False)
+    helpEmbed.add_field(name="split", value="Split user in the voice channel into two group", inline=False)
+    helpEmbed.add_field(name="ping", value="Return the network latency", inline=False)
+    helpEmbed.add_field(name="8ball <question>", value="Answer your question", inline=False)
+    helpEmbed.add_field(name="stopspam", value="Ban the command 'spam'", inline=False)
+    helpEmbed.add_field(name="allowspam", value="Allow the command 'spam' to be used", inline=False)
+    helpEmbed.add_field(name="spam <time> <content>", value="Spam the content for a number of time", inline=False)
+    helpEmbed.add_field(name="guessnum <maxium number>", value="Play a game of guessing number", inline=False)
+
+    await ctx.message.channel.send(embed=helpEmbed)
+
+@client.command()
 async def split(ctx):
     # get channel id
     try:
         channel = ctx.message.author.voice.channel
     except Exception:
-        await ctx.send("You have to be in a channel in order to use this command")
+        await ctx.send("You must be in a channel in order to use this command")
     # create splited team list 
     else:
         mem_list = [mem for mem in channel.members if not mem.bot]
@@ -131,7 +153,7 @@ async def ran_num_gen(ctx, start=1, end=10):
     await ctx.send(f'{random.randint(int(start),int(end))}')
 
 
-@client.command(aliases=['playguessnum', 'pgn'])
+@client.command(aliases=['playguessnum', 'pgn', "guessnum"])
 async def guess_num(ctx, num=100):
     global ans, play_guess_num, guess_count
     number = int(num)
