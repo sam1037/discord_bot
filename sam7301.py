@@ -190,7 +190,8 @@ async def on_message(msg):
     await client.process_commands(msg)
 
 
-client.run('NjYxNTg0NjUyNTgyMjU2Njgw.Xgtrug.sM-4vY0u-DwJH9YeOiWlsD7o0vo')
+client.run('NjYxNTg0NjUyNTgyMjU2Njgw.XgtiuA.SWtnucLY3NX3Dt9r_DVOMvkAcQY')
+
 
 
 # todo make a 百萬富翁 game
