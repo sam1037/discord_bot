@@ -3,6 +3,7 @@ from discord.ext import commands, tasks
 import random
 import asyncio
 import math
+from datetime import datetime
 
 client = commands.Bot(command_prefix=".")
 allow_spam = True
@@ -15,6 +16,7 @@ client.remove_command("help")
 
 @client.event
 async def on_ready():
+    printTime.start()
     global nine_chat
     for channel in client.get_all_channels():
         if channel.name == "9chat":
@@ -38,6 +40,13 @@ async def get_id(ctx):
     else:
         await ctx.send("You are not connected to a voice channel")
         return
+
+
+@tasks.loop(seconds=20)
+async def printTime():
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
+    print("Current Time =", current_time)
 
 @client.command()
 async def help(ctx):
@@ -90,7 +99,7 @@ async def split(ctx):
         await ctx.message.channel.send(embed=mesB)
 
 @client.command()
-async def pick(ctx, num):
+async def pick(ctx, num=1):
     num = int(num)
     # get channel id
     try:
@@ -112,8 +121,6 @@ async def pick(ctx, num):
         )
 
         await ctx.message.channel.send(embed=mes)
-
-
 
 
 @client.command()
