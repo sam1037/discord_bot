@@ -1,3 +1,5 @@
+#todo better orgainise the code using cogs, see more in yt tutorial.
+
 import discord
 from discord.ext import commands, tasks
 import random
@@ -42,11 +44,11 @@ async def get_id(ctx):
         return
 
 
-@tasks.loop(seconds=20)
+@tasks.loop(hours=1)
 async def printTime():
     now = datetime.now()
-    current_time = now.strftime("%H:%M:%S")
-    print("Current Time =", current_time)
+    current_time = now.strftime("%d:%H")
+    print("Current Time =   ", current_time)
 
 @client.command()
 async def help(ctx):
