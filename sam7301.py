@@ -89,6 +89,32 @@ async def split(ctx):
         await ctx.message.channel.send(embed=mesA)
         await ctx.message.channel.send(embed=mesB)
 
+@client.command()
+async def pick(ctx, num):
+    num = int(num)
+    # get channel id
+    try:
+        channel = ctx.message.author.voice.channel
+    except Exception:
+        await ctx.send("You must be in a channel in order to use this command")
+    # create splited team list 
+    else:
+        mem_list = [mem.display_name for mem in channel.members if not mem.bot]
+        if num > len(mem_list):
+            await ctx.message.channel.send(f"There is not enough member in the channel!")
+            return
+
+        choosen_list = random.sample(mem_list, num)
+        mes = discord.Embed(
+            title = "CHOOSEN PEOPLE",
+            colour = discord.Colour.red(),
+            description = "\n".join(choosen_list)
+        )
+
+        await ctx.message.channel.send(embed=mes)
+
+
+
 
 @client.command()
 async def ping(ctx):
