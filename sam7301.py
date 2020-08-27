@@ -48,7 +48,7 @@ async def get_id(ctx):
 async def printTime():
     now = datetime.now()
     current_time = now.strftime("%d:%H")
-    print("Current Time =   ", current_time)
+    print("Current Time =", current_time)
 
 @client.command()
 async def help(ctx):
@@ -187,6 +187,11 @@ async def ran_num_gen(ctx, start=1, end=10):
     """.rannum <start> <end>, this allow you to generate a random number in a range"""
     await ctx.send(f'{random.randint(int(start),int(end))}')
 
+@client.command(aliases=["randnum"])
+async def random_num(ctx, min=1, max=2):
+    num = random.randint(min, max)
+    await ctx.send(f"The choosen number is {num}")
+
 
 @client.command(aliases=['playguessnum', 'pgn', "guessnum"])
 async def guess_num(ctx, num=100):
@@ -229,4 +234,4 @@ client.run('NjYxNTg0NjUyNTgyMjU2Njgw.XgtiuA.SWtnucLY3NX3Dt9r_DVOMvkAcQY')
 
 
 
-# todo make a 百萬富翁 game
+# TODO make a 百萬富翁 game
