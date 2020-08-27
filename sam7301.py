@@ -183,15 +183,16 @@ async def spam(ctx, time, *args):
 
 
 @client.command(aliases=['rannum'])
-async def ran_num_gen(ctx, start=1, end=10):
+async def ran_num_gen(ctx, start=1, end=2):
     """.rannum <start> <end>, this allow you to generate a random number in a range"""
-    await ctx.send(f'{random.randint(int(start),int(end))}')
-
-@client.command(aliases=["randnum"])
-async def random_num(ctx, min=1, max=2):
-    num = random.randint(min, max)
-    await ctx.send(f"The choosen number is {num}")
-
+    try:
+        start = int(start)
+        end = int(end)
+        num = random.randint(start, end)
+        await ctx.send(f"The choosen number is num")
+    except Exception as e:
+        await ctx.send(e)
+    
 
 @client.command(aliases=['playguessnum', 'pgn', "guessnum"])
 async def guess_num(ctx, num=100):
