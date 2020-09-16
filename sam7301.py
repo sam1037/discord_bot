@@ -12,9 +12,38 @@ allow_spam = True
 number, ans, play_guess_num = 0, 0, 0
 guess_count = 'None'
 messages_list = []
+num_emojis = [":one:",
+    ":two:",
+    ":three:",
+    ":four:",
+    ":five:",
+    ":six:",
+    ":seven:",
+    ":eight:",
+    ":nine:",
+    ":ten:"]
 
+num_emo_unicode = [
+    "1\ufe0f\u20e3",
+    "2\ufe0f\u20e3",
+    "3\ufe0f\u20e3",
+    "4\ufe0f\u20e3",
+    "5\ufe0f\u20e3",
+    "6\ufe0f\u20e3",
+    "7\ufe0f\u20e3",
+    "8\ufe0f\u20e3",
+    "9\ufe0f\u20e3"
+]
 
 client.remove_command("help")
+
+def get_roast_sent():
+    f = open("roast_you.txt", "r")
+    lines = f.readlines()
+    sent = random.choice(lines)
+    f.close()
+    return sent
+
 
 @client.event
 async def on_ready():
@@ -202,6 +231,34 @@ async def guess_num(ctx, num=100):
     play_guess_num = True
     guess_count = 0
     await ctx.send("Enter number to guess.")
+
+
+@client.command(aliases=["roastme"])
+async def roast_me(ctx):
+    sentence = get_roast_sent()
+    await ctx.send(sentence)
+
+@client.command()
+async def mkpoll(ctx, topic, *opts):
+    if len(opts) > 10:
+        await ctx.send("The maximum number of options is 10.")
+
+    opts = [(f"{num_emojis[i]} {opt}") for i, opt in enumerate(opts)]
+    embed = discord.Embed(
+        colour = ctx.author.color,
+        title = topic,
+        description = "\n".join(opts)
+    )
+
+    poll_msg = await ctx.send(embed=embed)
+    for i in range(len(opts)):
+        await poll_msg.add_reaction(num_emo_unicode[i])
+
+
+@client.command()
+async def test(ctx):
+    msg = await ctx.send("test for reactions")
+    await msg.add_reaction("1\ufe0f\u20e3")
 
 
 @client.event
