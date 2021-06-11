@@ -261,6 +261,15 @@ async def test(ctx):
     await msg.add_reaction("1\ufe0f\u20e3")
 
 
+@client.command()
+async def dice(ctx):
+    num = random.randint(1,2)
+    if num == 1:
+        #post gif 
+        await ctx.send(file=discord.File("just_do_it.gif"))
+    else:
+        await ctx.send(file=discord.File("nah.gif"))
+
 @client.event
 async def on_message(msg):
 
