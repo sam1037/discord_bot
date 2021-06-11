@@ -240,7 +240,7 @@ async def roast_me(ctx):
 
 @client.command()
 async def mkpoll(ctx, topic, *opts):
-    if len(opts) > 10:
+    if len(opts) > 10:    
         await ctx.send("The maximum number of options is 10.")
 
     opts = [(f"{num_emojis[i]} {opt}") for i, opt in enumerate(opts)]
