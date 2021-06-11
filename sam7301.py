@@ -262,7 +262,7 @@ async def test(ctx):
 
 
 @client.command()
-async def dice(ctx):
+async def maybe(ctx):
     num = random.randint(1,2)
     if num == 1:
         #post gif 
