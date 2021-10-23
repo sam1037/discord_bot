@@ -345,6 +345,7 @@ async def check_reminder():
         for i in range(len(row)):
             dict_entry[names[i]] = row[i]
         result.append(dict_entry)
+    print(result)
 
     # check if due
     for reminder in result:
