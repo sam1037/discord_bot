@@ -329,6 +329,9 @@ async def remind(ctx, *, message):
         (reminder, str(current_local_time), str(due_time), channel_id, author_id))
     conn.commit()
 
+    #
+    await ctx.send("reminder received!")
+
     
 
 @tasks.loop(seconds = 10)
