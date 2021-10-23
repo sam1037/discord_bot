@@ -104,7 +104,7 @@ async def help(ctx):
     helpEmbed.add_field(name="allowspam", value="Allow the command 'spam' to be used", inline=False)
     helpEmbed.add_field(name="spam <time> <content>", value="Spam the content for a number of time", inline=False)
     helpEmbed.add_field(name="guessnum <maxium number>", value="Play a game of guessing number", inline=False)
-    helpEmbed.add_field(name="remind", value="send a reminder after some time", inline=False)
+    helpEmbed.add_field(name="remind <time> <reminder>", value="send a reminder after some time", inline=False)
 
     await ctx.message.channel.send(embed=helpEmbed)
 
