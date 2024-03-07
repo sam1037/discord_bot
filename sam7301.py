@@ -390,7 +390,7 @@ async def on_message(msg):
     await bot.process_commands(msg)
 
 
-bot.run('NjYxNTg0NjUyNTgyMjU2Njgw.XgtiuA.SWtnucLY3NX3Dt9r_DVOMvkAcQY')
+
 
 
 
